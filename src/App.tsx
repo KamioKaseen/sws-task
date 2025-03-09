@@ -1,10 +1,8 @@
+import './App.scss';
 
 export default function App() {
   return (
-    <>
-    start
-    </>
+    <div className="app">
+    </div>
   )
 }
-
-
