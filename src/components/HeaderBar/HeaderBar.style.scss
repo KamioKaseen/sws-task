@@ -1,0 +1,42 @@
+.header-bar {
+   display: flex;
+   gap: 3rem;
+   width: 100%;
+   padding-left: 2rem;
+   background-color: $primary;
+
+    &__navigation {
+       display: flex;
+       gap: 2.8rem;
+       font-size: 1.4rem;
+       color: $font-primary;
+    }
+
+     &__actionGroup {
+       display: flex;
+       gap: 2rem;
+    }
+ 
+    &__icon-button {
+       padding: 1.2rem 0;
+       display: flex;
+       color: $font-secondary;
+ 
+       &:hover {
+          color: $font-primary;
+          
+       }
+    }
+ 
+    &__text-button {
+       padding: 1.2rem 0;
+       color: $font-secondary;
+       border-bottom: 2px solid transparent;
+     
+       &:hover {
+         color: $font-primary;
+         border-bottom-color: $font-primary;
+       }
+     }
+ }
+ 
