@@ -1,5 +1,10 @@
 import './App.scss';
-import { HeaderBar, HeaderTitles, Sidebar } from '@components';
+import { 
+  HeaderBar, 
+  HeaderTitles, 
+  Sidebar, 
+  Table
+ } from '@components';
 
 export default function App() {
   return (
@@ -9,8 +14,10 @@ export default function App() {
         <HeaderTitles />
       </header>
 
-      <Sidebar />
-      
+      <main className='app__main'>
+        <Sidebar />
+        <Table />
+      </main> 
     </div>
   )
 }
