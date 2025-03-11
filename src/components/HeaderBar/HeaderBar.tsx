@@ -18,6 +18,5 @@ export function HeaderBar() {
         <button className="header-bar__text-button">Управление</button>
       </div>
     </div>
-    
   )
 }

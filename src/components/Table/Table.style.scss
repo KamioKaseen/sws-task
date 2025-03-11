@@ -1,0 +1,80 @@
+.table {
+    height: fit-content;
+    padding: 0 1.1rem;
+    width: 100%;
+    font-size: 1.4rem;
+
+    &__header,
+    &__row {
+        display: grid;
+        height: 100%;
+        grid-template-columns: 10.1rem 1fr 20rem 20rem 20rem 20rem;
+        border-bottom: 1px solid $tertiary;
+    }
+
+    th {
+        text-align: start;
+    }
+
+    td {
+        display: flex;
+        height: fit-content;
+    }
+
+    &__header {
+        color: $font-secondary;
+        padding: 1.1rem 0 1.1rem 1.1rem;
+    }
+      
+    &__row {
+        align-items: center;
+        color: $font-primary;
+        padding: 1.3rem 0 1.3rem 1.1rem;
+    }
+
+    &__img-container {
+        display: flex;
+        align-items: center;
+        width: fit-content;
+        gap: .5rem;
+        padding: .5rem .8rem .5rem .5rem;
+    }
+
+    &__row--img {  
+        display: flex;
+        position: relative;
+
+        &:first-child {
+            content: none;
+        }
+        &::after {  
+            position: absolute;  
+            content: "";
+            top: 83%;
+            left: 50%;
+            width: 1%;  
+            height: 5.7rem;  
+            background-color: #C6C6C6;  
+            transform: translateX(-50%);
+        }  
+
+        &::before {  
+            position: absolute;  
+            content: "";
+            top: 50%;
+            right: 66%;
+            width: 34%;  
+            height: 1%;  
+            background-color: #C6C6C6;  
+            transform: translateX(-50%);
+        }  
+    }  
+
+    &__hide-before::before {  
+        content: none;
+    }  
+
+    &__hide-after::after {  
+        content: none;
+    }  
+}
