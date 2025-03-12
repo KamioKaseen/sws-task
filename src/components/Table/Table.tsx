@@ -1,51 +1,38 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from "react";
+import { TableRow } from '../TableRow';
+import { TableRowData } from './Table.types';
 import './Table.style.scss';
+import { useFetchRowsQuery } from "../../api/outlayRowsApi";
 
-interface TableRowData {
-  rowName: string;
-  salary: number;
-  equipment: number;
-  overheads: number;
-  estimatedProfit: number;
-}
+export function Table() {
+  const eID = 150231; 
 
-export function Table () {
-  const rows: TableRowData[] = [
-    {
-      rowName: 'Южная строительная площадка',
-      salary: 20348,
-      equipment: 1750,
-      overheads: 108.07,
-      estimatedProfit: 1209122.5,
-    },
-    {
-      rowName: 'Фундаментальные работы',
-      salary: 20348,
-      equipment: 1750,
-      overheads: 108.07,
-      estimatedProfit: 1209122.5,
-    },
-    {
-      rowName: 'Статья работы №1',
-      salary: 20348,
-      equipment: 1750,
-      overheads: 119,
-      estimatedProfit: 850,
-    },
-    {
-      rowName: 'Статья работы №2',
-      salary: 20348,
-      equipment: 1200,
-      overheads: 100,
-      estimatedProfit: 650,
-    },
-  ];
+  const { data, isLoading, isSuccess } = useFetchRowsQuery(eID);  
+  const [rows, setRows] = useState<TableRowData[]>([]);
+
+  const isDataEmpty = data?.length === 0;
+
+  useEffect(() => {
+    if (isSuccess) {
+      setRows(
+        !isDataEmpty
+          ? data
+          : [{
+              rowName: '',
+              salary: '',
+              equipment: '',
+              overheads: '',
+              estimatedProfit: '',
+            }]
+      );
+    }
+  }, [data, isSuccess, isDataEmpty]);
 
   return (
-    <table className='table'>
-      <thead className=''>
-        <tr className='table__header'>
-          <th >Уровень</th>
+    <table className="table">
+      <thead>
+        <tr className="table__header">
+          <th>Уровень</th>
           <th>Наименование работ</th>
           <th>Основная з/п</th>
           <th>Оборудование</th>
@@ -53,35 +40,24 @@ export function Table () {
           <th>Сметная прибыль</th>
         </tr>
       </thead>
-      <tbody>
-        {rows.map((item, index) => {
-          const marginLeft = index * 2;
+      <tbody className="table__content">
 
-          return (
-          <tr style={{paddingLeft: `${marginLeft}rem`}} className='table__row'>
-            <td>
-              <div className='table__img-container'>
-                <span 
-                  className={`
-                    table__row--img 
-                    ${index === 0 && 'table__hide-before'}
-                    ${index === rows.length - 1 && 'table__hide-after'}
-                  `}
-                >
-                  <img  height={30} width={30} src="/document.svg" alt="document" />
-                </span>
-
-                {/* <img height={24} width={24} src="/trashfill.svg" alt="trashfill" /> */}
-              </div>
-            </td>
-            <td>{item.rowName}</td>
-            <td>{item.salary}</td>
-            <td>{item.equipment}</td>
-            <td>{item.overheads}</td>
-            <td>{item.estimatedProfit}</td>
-          </tr>)  
-        })}
+        { isLoading 
+            ? Array.from({ length: 10 }).map(() => {
+                return <tr key={Math.random()} className="table__skeleton"></tr>  
+              })
+            : rows.map((item, index) => (
+              <TableRow
+                key={index}
+                item={item}
+                index={index}
+                lastIndex={rows.length - 1}
+                paddingLeft={index * 2}
+                isDataEmpty={isDataEmpty}
+              />
+            ))} 
       </tbody>
     </table>
   );
-};
+}
+
