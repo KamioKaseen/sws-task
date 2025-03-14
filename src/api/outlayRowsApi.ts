@@ -1,71 +1,12 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { 
+  RowResponse, 
+  OutlayRowRequest, 
+  OutlayRowUpdateRequest, 
+  DeleteRowRequest 
+} from './outlayRowsApi.types';
 
-export interface OutlayRow {
-  id: string;
-  parentId: string | null;
-  rowName: string;
-  salary: number;
-  equipment: number;
-  overheads: number;
-  estimatedProfit: number;
-}
-
-export interface CreateEntityResponse {
-  id: number;
-  rowName: string;
-}
-
-export interface CreateRowRequest {
-  equipmentCosts: number;
-  estimatedProfit: number;
-  machineOperatorSalary: number;
-  mainCosts: number;
-  materials: number;
-  mimExploitation: number;
-  overheads: number;
-  rowName:	string;
-  salary: number;
-  supportCosts: number;
-}
-
-export interface UpdateRowRequest {
-  equipmentCosts: number;
-  estimatedProfit: number;
-  machineOperatorSalary: number;
-  mainCosts: number;
-  materials: number;
-  mimExploitation: number;
-  overheads: number;
-  parentId: number;
-  rowName:	string;
-  salary: number;
-  supportCosts: number;
-}
-
-export interface GetTreeRows {
-    child: [
-      null
-    ],
-    equipmentCosts: number;
-    estimatedProfit: number;
-    id: number;
-    machineOperatorSalary: number;
-    mainCosts: number;
-    materials: number;
-    mimExploitation: number;
-    overheads: number;
-    rowName: string;
-    salary: number;
-    supportCosts: number;
-    total: number
-}
-
-export interface DeleteRowRequest {
-  eID: string;
-  rID: string;
-}
-
-// const eID = 150231;
+export const eID = 150231; 
 
 export const outlayRowsApi = createApi({
   reducerPath: 'rowsApi',
@@ -74,12 +15,12 @@ export const outlayRowsApi = createApi({
   }),
   tagTypes: ['OutlayRows'],
   endpoints: (builder) => ({
-    fetchRows: builder.query<OutlayRow[], number>({
+    fetchRows: builder.query<RowResponse[], number>({
       query: (eID) => `${eID}/row/list`,
       providesTags: ['OutlayRows'],
     }),
 
-    createRow: builder.mutation<OutlayRow[], { eID: number; body: CreateRowRequest }>({
+    createRow: builder.mutation<RowResponse, { eID: number; body: OutlayRowRequest }>({
       query: ({ eID, body }) => ({
         url: `${eID}/row/create`,
         method: 'POST',
@@ -88,18 +29,18 @@ export const outlayRowsApi = createApi({
       invalidatesTags: ['OutlayRows'],
     }),
 
-    updateRow: builder.mutation<OutlayRow[], { eID: string; rID: string; body: UpdateRowRequest }>({
+    updateRow: builder.mutation<RowResponse, { eID: number; rID: number; body: OutlayRowUpdateRequest }>({
       query: ({ eID, rID, body }) => ({
-        url: `/entity/${eID}/row/${rID}/update`,
-        method: 'PATCH',
+        url: `${eID}/row/${rID}/update`,
+        method: 'POST',
         body,
       }),
       invalidatesTags: ['OutlayRows'],
     }),
 
-    deleteRow: builder.mutation<OutlayRow[], DeleteRowRequest>({
+    deleteRow: builder.mutation<RowResponse, DeleteRowRequest>({
       query: ({ eID, rID }) => ({
-        url: `/entity/${eID}/row/${rID}/delete`,
+        url: `${eID}/row/${rID}/delete`,
         method: 'DELETE',
       }),
       invalidatesTags: ['OutlayRows'],

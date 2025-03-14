@@ -1,12 +1,19 @@
 .table-row {
+    position: relative;
     display: grid;
     grid-template-columns: 10rem 1fr 20rem 20rem 20rem 20rem;
     height: max-content;
-    padding: 1.3rem 0 1.3rem 1.1rem;
+    padding: 1.3rem 0 1.3rem 0;
     border-bottom: 1px solid $tertiary;
     text-align: start;
     align-items: center;
     color: $font-primary;
+
+    &__cell {
+        padding: 0 1rem;
+        display: flex;
+        align-items: center;
+    }
 
     &__input {
         width: 90%;
@@ -24,59 +31,70 @@
         gap: .5rem;
         padding: .5rem .8rem .5rem 0;
         border-radius: .6rem;
+        position: relative;
     }
 
     &--img {  
         display: flex;
         position: relative;
 
-        &:first-child {
-            content: none;
+        &::before {
+            position: absolute;
+            top: 45%;
+            left: -20%;
+            display: block;
+            height: 1%;
+            width: 1em;
+            background-color: #777;
+            content: '';
         }
-        &::after {  
-            position: absolute;  
-            content: "";
-            top: 83%;
-            left: 50%;
-            width: 1%;  
-            height: 5.7rem;  
-            background-color: #C6C6C6;  
-            transform: translateX(-50%);
-        }  
 
-        &::before {  
-            position: absolute;  
-            content: "";
-            top: 50%;
-            right: 66%;
-            width: 34%;  
-            height: 1%;  
-            background-color: #C6C6C6;  
-            transform: translateX(-50%);
-        }  
-    }  
+        &::after {
+            position: absolute;
+            top: -4.1rem;
+            left: -20%;
+            display: block;
+            height: 5.5rem;
+            width: 1%;
+            background-color: #777;
+            content: '';
+        }
 
-    &__hide-before::before {  
-        content: none;
-    }  
+        &.no-before::before {  
+            content: none;
+        } 
 
-    &__hide-after::after {  
-        content: none;
-    }  
+        &.no-after::after {  
+            content: none;
+        } 
+    }
 
     &--hover {
-        &:hover {
-            background-color: $tertiary;
-            cursor: pointer;
+        &:hover {  
+            background-color: $tertiary;  
+            cursor: pointer;  
+
+            .table-row__trashfill {
+                display: block;
+            }  
         }
     }
 
-    &__error {
-        display: grid;
-        place-items: center;
-        padding: .5rem;
-        width: 100%;
-        color: rgb(240, 86, 86);
+    &__trashfill {
+        display: none;
     }
 }
 
+.loader {  
+    border: .1rem solid #f3f3f3;
+    border-top: .1rem solid $primary;
+    border-radius: 50%;
+    width: 100%;
+    padding: 1rem;
+    animation: spin 1s linear infinite;
+}  
+
+@keyframes spin {  
+    0% { transform: rotate(0deg); }  
+    100% { transform: rotate(360deg); }  
+}  
