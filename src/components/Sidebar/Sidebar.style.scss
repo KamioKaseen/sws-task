@@ -1,0 +1,11 @@
+.sidebar {
+   flex: 1;
+   min-width: 22rem;
+   background-color: $primary;
+   border-right: 1px solid $tertiary;
+
+   &__list {
+      display: flex;
+      flex-direction: column;
+   }
+}

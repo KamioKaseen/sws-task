@@ -5,12 +5,13 @@ import path from 'path';
 export default defineConfig({  
   base: './',  
   plugins: [react()],  
-  resolve: {  
-    alias: {  
-      '@': path.resolve(__dirname, 'src'),
-      '@components': path.resolve(__dirname, 'src/components'),  
-    },  
-  },  
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+      '@components': path.resolve(__dirname, './src/components'),
+      '@icons': path.resolve(__dirname, './src/icons'),
+    },
+  },
   css: {  
     preprocessorOptions: {  
       scss: {  
