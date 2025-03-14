@@ -11,7 +11,7 @@ export const eID = 150231;
 export const outlayRowsApi = createApi({
   reducerPath: 'rowsApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://185.244.172.108:8081/v1/outlay-rows/entity/',
+    baseUrl: '//185.244.172.108:8081/v1/outlay-rows/entity/',
   }),
   tagTypes: ['OutlayRows'],
   endpoints: (builder) => ({
